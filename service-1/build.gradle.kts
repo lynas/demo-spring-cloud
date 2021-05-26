@@ -1,23 +1,21 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.5.0"
+    id("org.springframework.boot") version "2.4.6"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.5.0"
-    kotlin("plugin.spring") version "1.5.0"
+    kotlin("jvm") version "1.4.32"
+    kotlin("plugin.spring") version "1.4.32"
 }
 
-group = "com.example"
+group = "com.lynas"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://repo.spring.io/snapshot") }
-    maven { url = uri("https://repo.spring.io/milestone") }
 }
 
-extra["springCloudVersion"] = "2020.0.3-SNAPSHOT"
+extra["springCloudVersion"] = "2020.0.2"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -27,8 +25,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
 }
