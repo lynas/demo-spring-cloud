@@ -1,53 +1,47 @@
 package com.lynas
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
-import org.springframework.cloud.client.loadbalancer.LoadBalanced
+import org.springframework.cloud.gateway.route.RouteLocator
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
 import org.springframework.context.annotation.Bean
-import org.springframework.http.codec.ServerCodecConfigurer
-import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.reactive.function.client.awaitBody
+
 
 @EnableDiscoveryClient
 @SpringBootApplication
+class ApiGatewayApplication {
 
-class ApiGatewayApplication{
 
-    @Bean
-    @LoadBalanced
-    fun builder() = WebClient.builder()
 
     @Bean
-    fun webClient(builder: WebClient.Builder) =  builder.build()
-
-    @Bean
-    fun init(webClient: WebClient) = CommandLineRunner {
-        GlobalScope.launch {
-            val users = webClient.get()
-                .uri("http://demo-service-1/users")
-                .retrieve()
-                .awaitBody<String>()
-
-//            users.forEach {
-//                println(users.toString())
-//            }
-
-            println(users)
-        }
+    fun gateway(rlb: RouteLocatorBuilder): RouteLocator {
+        return rlb.routes()
+            .route {rs->rs
+                .path("/userss")
+                .uri("https://stackoverflow.com/")
+            }
+            .route { rs ->
+                rs
+                    .path("/users2")
+//                    .filters { fs-> fs.circuitBreaker { cb->cb.setFallbackUri("forward:/userss") } }
+                    .uri("lb://demo-service-1/users")
+            }
+            .build()
 
     }
-}
 
+
+//    @Bean
+//    fun gateways(rlb: RouteLocatorBuilder): RouteLocator {
+//        return rlb.routes()
+//            .route {
+//                it.path("/users").uri("lb://demo-service-1/users")
+//            }.build()
+//    }
+
+}
 fun main(args: Array<String>) {
     runApplication<ApiGatewayApplication>(*args)
 }
 
-
-class User(
-    val id : String,
-    val name: String
-)

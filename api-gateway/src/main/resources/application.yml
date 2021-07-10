@@ -8,3 +8,6 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+logging:
+  level:
+    root: debug
