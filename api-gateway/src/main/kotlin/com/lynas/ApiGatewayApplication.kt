@@ -14,7 +14,7 @@ class ApiGatewayApplication {
 
 
 
-    @Bean
+/*    @Bean
     fun gateway(rlb: RouteLocatorBuilder): RouteLocator {
         return rlb.routes()
             .route {rs->rs
@@ -29,16 +29,19 @@ class ApiGatewayApplication {
             }
             .build()
 
+    }*/
+
+
+    @Bean
+    fun gateways(rlb: RouteLocatorBuilder): RouteLocator {
+        return rlb.routes()
+            .route("userRoute") {
+                it
+                    .path("/demo")
+                    .filters { f-> f.setPath("/users") }
+                    .uri("lb://demo-service-1")
+            }.build()
     }
-
-
-//    @Bean
-//    fun gateways(rlb: RouteLocatorBuilder): RouteLocator {
-//        return rlb.routes()
-//            .route {
-//                it.path("/users").uri("lb://demo-service-1/users")
-//            }.build()
-//    }
 
 }
 fun main(args: Array<String>) {
