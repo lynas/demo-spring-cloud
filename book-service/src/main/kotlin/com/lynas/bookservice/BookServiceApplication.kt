@@ -1,4 +1,4 @@
-package com.example.demoservice1
+package com.lynas.bookservice
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -12,10 +12,10 @@ import java.util.*
 
 @EnableDiscoveryClient
 @SpringBootApplication
-class DemoService1Application
+class BookServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<DemoService1Application>(*args)
+    runApplication<BookServiceApplication>(*args)
 }
 
 @RefreshScope
@@ -28,17 +28,17 @@ class MessageRestController {
     @GetMapping("/message")
     fun getMessage() = propMessage
 
-    @GetMapping("/users")
+    @GetMapping("/books")
     fun getUsers() = listOf(
-        User(UUID.randomUUID().toString(), System.currentTimeMillis().toString()),
-        User(UUID.randomUUID().toString(), System.currentTimeMillis().toString()),
-        User(UUID.randomUUID().toString(), System.currentTimeMillis().toString()),
-        User(UUID.randomUUID().toString(), System.currentTimeMillis().toString())
+        Book(UUID.randomUUID().toString(), "Harry Potter"),
+        Book(UUID.randomUUID().toString(), "Spring in Action"),
+        Book(UUID.randomUUID().toString(), "The great expectation"),
+        Book(UUID.randomUUID().toString(), "The Wind Rises")
     )
 }
 
 
-class User(
+class Book(
     val id : String,
     val name: String
 )
