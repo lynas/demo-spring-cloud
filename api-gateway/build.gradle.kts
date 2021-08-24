@@ -33,6 +33,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
     implementation("com.github.ben-manes.caffeine:caffeine:3.0.2")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
+
 
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -8,6 +8,24 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
-logging:
-  level:
-    root: debug
+    gateway:
+      routes:
+        uri: https://spring.io
+        predicates:
+          -Path=/guides
+        filters:
+          -name: RequestRateLimiter
+          args:
+            radis-rate-limiter.replenisRate: 2
+            radis-rate-limiter.burstCapacity: 2
+
+
+
+
+#logging:
+#  level:
+#    root: debug
+
+redis:
+  host: localhost
+  port: 6379

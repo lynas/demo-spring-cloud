@@ -6,6 +6,7 @@ import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.cloud.context.config.annotation.RefreshScope
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
@@ -22,11 +23,14 @@ fun main(args: Array<String>) {
 @RestController
 class MessageRestController {
 
-    @Value("\${message:Hello defalult}")
+    @Value("\${message:Hello default}")
     lateinit var propMessage: String
 
     @GetMapping("/message")
     fun getMessage() = propMessage
+
+    @GetMapping("/greeting/{name}")
+    fun greeting(@PathVariable name: String) = "Hello $name"
 
     @GetMapping("/books")
     fun getUsers() = listOf(
