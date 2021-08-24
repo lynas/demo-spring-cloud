@@ -52,13 +52,14 @@ class ApiGatewayApplication {
         return rlb.routes()
             .route("bookRoute") { it
                     .path("/bookList")
-                    .filters { f -> f
+                    .filters { filter -> filter
                             .setPath("/books")
                             .circuitBreaker { cb -> cb.setFallbackUri("forward:/emptyList") }
                             .requestRateLimiter().configure { rrc ->
-                                rrc.setRateLimiter(redisRateLimiter())
-                                rrc.setKeyResolver(userKeyResolver())
-
+                                rrc.apply {
+                                    rateLimiter = redisRateLimiter()
+                                    keyResolver = userKeyResolver()
+                                }
                             }
                     }
                     .uri("lb://book-service")
