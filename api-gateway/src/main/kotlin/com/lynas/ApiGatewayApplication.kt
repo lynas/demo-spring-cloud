@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder
+import org.springframework.cloud.client.circuitbreaker.Customizer
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver
-import org.springframework.cloud.client.circuitbreaker.Customizer;
-import org.springframework.cloud.gateway.filter.factory.RequestRateLimiterGatewayFilterFactory
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter
 import org.springframework.cloud.gateway.route.RouteLocator
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
@@ -17,7 +16,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
-import reactor.kotlin.core.publisher.toMono
 import java.time.Duration
 
 
@@ -39,7 +37,7 @@ class ApiGatewayApplication {
 
     @Bean
     fun userKeyResolver(): KeyResolver {
-//        return KeyResolver { it.request.queryParams.getFirst("user").toMono() }
+//        return KeyResolver { it.request.queryParams.getFirst("user").toMono() } TODO
         return KeyResolver { Mono.just("1") }
     }
 

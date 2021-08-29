@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: "api-gateway"
@@ -8,19 +7,6 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
-    gateway:
-      routes:
-        uri: https://spring.io
-        predicates:
-          -Path=/guides
-        filters:
-          -name: RequestRateLimiter
-          args:
-            radis-rate-limiter.replenisRate: 2
-            radis-rate-limiter.burstCapacity: 2
-
-
-
 
 #logging:
 #  level:
