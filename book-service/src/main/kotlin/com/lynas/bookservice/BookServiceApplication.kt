@@ -33,16 +33,22 @@ class MessageRestController {
     fun greeting(@PathVariable name: String) = "Hello $name"
 
     @GetMapping("/books")
-    fun getUsers() = listOf(
-        Book(UUID.randomUUID().toString(), "Harry Potter"),
-        Book(UUID.randomUUID().toString(), "Spring in Action"),
-        Book(UUID.randomUUID().toString(), "The great expectation"),
-        Book(UUID.randomUUID().toString(), "The Wind Rises")
-    )
+    fun getAllBooks() : Map<String, Book> = getAllBooksMap()
+
+    @GetMapping("/books/{id}")
+    fun getOneBook(@PathVariable id: String) = getAllBooksMap()[id]
 }
 
 
 class Book(
     val id : String,
     val name: String
+)
+
+fun getAllBooksMap(): Map<String, Book> = mapOf(
+    "325dac11" to Book("325dac11", "Harry Potter"),
+    "a1447057" to Book("a1447057", "Spring in Action"),
+    "4d48c52d" to Book("4d48c52d", "The great expectation"),
+    "5b3d68d7" to Book("5b3d68d7", "The Wind Rises")
+
 )
