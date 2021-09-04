@@ -47,6 +47,8 @@
   - `./grafana-server web`
   - view it at `http://localhost:3000/`
   - default user name and password `admin`
+  - JVM sample dashboard id 4701
+  - You can import it from dashboard pane on the left
 
 
 
