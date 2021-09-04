@@ -26,6 +26,13 @@
     - http_server_requests_seconds_count
     - rate(http_server_requests_seconds_count[5m])
     - http_server_requests_seconds_count{uri="/books"}
+- How to run
+  - Download prometheus
+  - cd into it
+  - create a file named `prometheus.yml`
+  - Put you prometheus config into it. Sample provide in this repo root 
+  - Execute following command to run it
+  - `./prometheus --config.file=prometheus.yml`
 
 # 6 API-Gateway
 - cd into api-gateway
