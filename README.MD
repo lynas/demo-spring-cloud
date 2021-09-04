@@ -38,6 +38,15 @@
 - cd into api-gateway
 - run `./gradlew bootRun`
 
+# 7 Grafana
+- This is used for graphically representing your microservices
+- How to run
+  - Download graphana ( https://grafana.com/grafana/download )
+  - Here stand alone is shown you can run it in docker or other system
+  - Go do grafana bin dir and run follwoing command
+  - `./grafana-server web`
+  - view it at `http://localhost:3000/`
+  - default user name and password `admin`
 
 
 
