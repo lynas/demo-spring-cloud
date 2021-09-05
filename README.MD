@@ -18,7 +18,20 @@
 - `sudo /etc/init.d/redis-server status`
 - `sudo /etc/init.d/redis-server start`
 
-# 5 Start Prometheus
+
+# 5 API-Gateway
+- cd into api-gateway
+- run `./gradlew bootRun`
+
+# 6 Distributed tracing
+- Download zipkin server
+  - https://zipkin.io/pages/quickstart
+- In the service you want to trace add follwoing
+  - spring:
+      zipkin:
+        base-url: http://192.168.86.130:9411
+
+# 7 Start Prometheus
 - Why needed
   - Collect application metrics data 
   - e.g how many time an url is being hit within given interval (e.g 5 min)
@@ -34,11 +47,8 @@
   - Execute following command to run it
   - `./prometheus --config.file=prometheus.yml`
 
-# 6 API-Gateway
-- cd into api-gateway
-- run `./gradlew bootRun`
 
-# 7 Grafana
+# 8 Grafana
 - This is used for graphically representing your microservices
 - How to run
   - Download graphana ( https://grafana.com/grafana/download )

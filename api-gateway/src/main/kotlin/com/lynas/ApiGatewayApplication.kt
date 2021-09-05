@@ -37,7 +37,9 @@ class ApiGatewayApplication {
 
     @Bean
     fun userKeyResolver(): KeyResolver {
-//        return KeyResolver { it.request.queryParams.getFirst("user").toMono() } TODO
+        // Currently rate limit is set for all
+        // If you want to add rate limit per user then add spring security and un comment following line
+        // return KeyResolver { it.request.queryParams.getFirst("user").toMono() } TODO
         return KeyResolver { Mono.just("1") }
     }
 
