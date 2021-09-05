@@ -1,5 +1,5 @@
 spring:
   application:
-    name: eureka-service-discovery
+    name: service-discovery-server
   config:
     import: "optional:configserver:http://localhost:8888/"
