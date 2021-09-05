@@ -62,3 +62,23 @@
 
 
 
+# 9 MISC
+
+- Run service in docker
+- Run jre 11 docker container
+  - `sudo docker run -it openjdk:11-jre-slim-buster bash`
+- Copy file to container
+  - `sudo docker cp book-service-0.0.1-SNAPSHOT.jar 92ab2045d24e:/root/book-service-0.0.1-SNAPSHOT.jar`
+- Run file 
+  - `java -jar jarName.jar`
+- Make sure to set ip address in application.yml so that eureka can discover service and call it via ip
+
+```
+eureka:
+  instance:
+    prefer-ip-address: true
+    ip-address: 172.17.0.2
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.86.130:8761/eureka/
+```
