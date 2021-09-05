@@ -4,7 +4,7 @@
 - cd into Config-Server directory
 - run `./gradlew bootRun`
 
-# 2 Start discovery server (eureka)
+# 2 Start Service discovery server (eureka)
 - cd into Discovery-Server (eureka-service-discovery) directory
 - run `./gradlew bootRun`
 
