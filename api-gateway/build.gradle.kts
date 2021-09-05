@@ -35,6 +35,11 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine:3.0.2")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
 
+    implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
+    implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("io.micrometer:micrometer-registry-prometheus")
+
 
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
