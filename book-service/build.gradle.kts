@@ -30,6 +30,7 @@ dependencies {
 
 
 
+    // Distributed tracing view with zipkin UI
     implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
 

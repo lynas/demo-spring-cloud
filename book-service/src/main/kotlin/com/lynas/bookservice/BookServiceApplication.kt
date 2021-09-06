@@ -9,6 +9,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope
 import org.springframework.cloud.gateway.route.RouteLocator
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
 import org.springframework.context.annotation.Bean
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
@@ -60,18 +62,27 @@ class BookRestController(
     fun greeting(@PathVariable name: String) = "Hello $name"
 
     @GetMapping("/books")
-    fun getAllBooks() : Map<String, Book> = getAllBooksMap()
+    fun getAllBooks(): Map<String, Book> = getAllBooksMap()
 
     @GetMapping("/books/{id}")
     fun getOneBook(@PathVariable id: String) = getAllBooksMap()[id]
 
     @GetMapping("/books/order/{id}")
     fun buyBook(@PathVariable id: String) = webClient.get().uri("/order/$id").retrieve().bodyToMono<String>()
+
+    @GetMapping("/books/error/{option}")
+    fun showError(@PathVariable option:Boolean): ResponseEntity<Any>{
+        return if (option) {
+            ResponseEntity("Not found", HttpStatus.NOT_FOUND)
+        }else{
+            ResponseEntity("Found", HttpStatus.OK)
+        }
+    }
 }
 
 
 class Book(
-    val id : String,
+    val id: String,
     val name: String
 )
 

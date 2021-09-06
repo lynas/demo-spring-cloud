@@ -12,14 +12,6 @@ spring:
   sleuth:
       sampler:
         probability: 1
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    metrics:
-      enabled: true
 
 #logging:
 #  level:

@@ -39,10 +39,6 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
 
-    // Gather metrics and view it in Grafana
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("io.micrometer:micrometer-registry-prometheus")
-
 
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
