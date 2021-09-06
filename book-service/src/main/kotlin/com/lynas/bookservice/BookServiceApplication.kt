@@ -4,16 +4,41 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
+import org.springframework.cloud.client.loadbalancer.LoadBalanced
 import org.springframework.cloud.context.config.annotation.RefreshScope
+import org.springframework.cloud.gateway.route.RouteLocator
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
+import org.springframework.context.annotation.Bean
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.bodyToMono
 import java.util.*
+
 
 @EnableDiscoveryClient
 @SpringBootApplication
-class BookServiceApplication
+class BookServiceApplication {
+    @Bean
+    fun webClientOrderService(builder: WebClient.Builder) = builder.baseUrl("lb://order-service").build()
+
+    @Bean
+    fun routeLocator(routeLocatorBuilder: RouteLocatorBuilder): RouteLocator {
+        return routeLocatorBuilder.routes()
+            .route("order-service") { route ->
+                route.path("/order/**")
+                    .uri("lb://order-service")
+            }
+            .build()
+    }
+
+    @Bean
+    @LoadBalanced
+    fun loadBalancedWebClientBuilder(): WebClient.Builder? {
+        return WebClient.builder()
+    }
+}
 
 fun main(args: Array<String>) {
     runApplication<BookServiceApplication>(*args)
@@ -21,7 +46,9 @@ fun main(args: Array<String>) {
 
 @RefreshScope
 @RestController
-class MessageRestController {
+class BookRestController(
+    val webClient: WebClient
+) {
 
     @Value("\${message:Hello default}")
     lateinit var propMessage: String
@@ -37,6 +64,9 @@ class MessageRestController {
 
     @GetMapping("/books/{id}")
     fun getOneBook(@PathVariable id: String) = getAllBooksMap()[id]
+
+    @GetMapping("/books/order/{id}")
+    fun buyBook(@PathVariable id: String) = webClient.get().uri("/order/$id").retrieve().bodyToMono<String>()
 }
 
 

@@ -12,6 +12,7 @@ import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter
 import org.springframework.cloud.gateway.route.RouteLocator
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
+import org.springframework.cloud.gateway.route.builder.filters
 import org.springframework.context.annotation.Bean
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -63,7 +64,12 @@ class ApiGatewayApplication {
                             }
                     }
                     .uri("lb://book-service")
-            }.build()
+            }
+            .route("books"){ it
+                .path("/books/**")
+                .uri("lb://book-service")
+            }
+            .build()
     }
 
 }

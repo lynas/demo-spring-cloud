@@ -9,7 +9,9 @@ spring:
         enabled: false
   zipkin:
     base-url: http://192.168.86.130:9411
-
+  sleuth:
+      sampler:
+        probability: 1
 management:
   endpoints:
     web:

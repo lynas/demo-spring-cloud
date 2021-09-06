@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: "order-service"
+  config:
+    import: "optional:configserver:http://192.168.86.130:8888/"
+  zipkin:
+    base-url: http://192.168.86.130:9411
+  sleuth:
+    sampler:
+      probability: 1
