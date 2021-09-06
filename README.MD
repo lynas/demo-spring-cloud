@@ -39,6 +39,7 @@
     - http_server_requests_seconds_count
     - rate(http_server_requests_seconds_count[5m])
     - http_server_requests_seconds_count{uri="/books"}
+    - http_server_requests_seconds_count{status="404"}
 - How to run
   - Download prometheus
   - cd into it
