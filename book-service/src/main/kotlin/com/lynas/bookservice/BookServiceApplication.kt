@@ -62,7 +62,10 @@ class BookRestController(
     fun greeting(@PathVariable name: String) = "Hello $name"
 
     @GetMapping("/books")
-    fun getAllBooks(): Map<String, Book> = getAllBooksMap()
+    fun getAllBooks(): Map<String, Book> {
+//        Thread.sleep(5000)
+        return getAllBooksMap()
+    }
 
     @GetMapping("/books/{id}")
     fun getOneBook(@PathVariable id: String) = getAllBooksMap()[id]

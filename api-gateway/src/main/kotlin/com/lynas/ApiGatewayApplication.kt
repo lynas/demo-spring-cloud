@@ -12,7 +12,6 @@ import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter
 import org.springframework.cloud.gateway.route.RouteLocator
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder
-import org.springframework.cloud.gateway.route.builder.filters
 import org.springframework.context.annotation.Bean
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -24,13 +23,16 @@ import java.time.Duration
 @SpringBootApplication
 class ApiGatewayApplication {
 
+    // This bean defines how long it will wait for down stream service to return result
+    // As defined bellow if it is more than 5 seconds then it will go to fallback url
+    // This is optional bean default behaviour is it will wait 1 seconds before it goes to fallback url
     @Bean
     fun defaultCustomizer(): Customizer<ReactiveResilience4JCircuitBreakerFactory> {
         return Customizer<ReactiveResilience4JCircuitBreakerFactory> { factory ->
             factory.configureDefault { id ->
                 Resilience4JConfigBuilder(id)
                     .circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
-                    .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(1)).build())
+                    .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(5)).build())
                     .build()
             }
         }
@@ -40,7 +42,7 @@ class ApiGatewayApplication {
     fun userKeyResolver(): KeyResolver {
         // Currently rate limit is set for all
         // If you want to add rate limit per user then add spring security and un comment following line
-        // return KeyResolver { it.request.queryParams.getFirst("user").toMono() } TODO
+        // return KeyResolver { it.request.queryParams.getFirst("user").toMono() }
         return KeyResolver { Mono.just("1") }
     }
 
