@@ -12,8 +12,8 @@ spring:
 # SET IP ADDRESS IF IT IS NOT AUTOMATICALLY PICKED UP AND SHOWN WHEN CLICKING ON THE INSTANCE LINK ON THE EUREKA DISCOVERY SERVER
 eureka:
   instance:
-    prefer-ip-address: true
-    ip-address: 192.168.86.130 # put docker ip address before running it in docker
+#    prefer-ip-address: true
+#    ip-address: 172.17.0.2 # put docker ip address before running it in docker
   client:
     serviceUrl:
       defaultZone: http://192.168.86.130:8761/eureka/

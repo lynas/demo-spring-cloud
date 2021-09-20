@@ -18,26 +18,34 @@ repositories {
 extra["springCloudVersion"] = "2020.0.3"
 
 dependencies {
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
-    implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.8.RELEASE")
-    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j")
-    implementation("org.springframework.cloud:spring-cloud-starter-config")
+
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
-    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
     implementation("com.github.ben-manes.caffeine:caffeine:3.0.2")
+
+
+    // Circuit breaker and fallback
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.8.RELEASE")
+    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j")
+
+    implementation("org.springframework.cloud:spring-cloud-starter-config")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+
+
+    // Keep track of request rate limiting
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
 
-    // Distributed tracing
+    // Distributed tracing view with zipkin UI
     implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 
 
 
